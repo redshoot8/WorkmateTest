@@ -22,8 +22,11 @@ def main():
         # Агрегация в конце
         if args.aggregate:
             data = AggregateCommand(args.aggregate).apply(data)
-            
-        print(tabulate(data, headers='keys', tablefmt='grid'))
+        
+        if not data:
+            print(tabulate([{'_': 'Нет результатов'}], tablefmt='grid'))
+        else:
+            print(tabulate(data, headers='keys', tablefmt='grid'))
     except Exception as e:
         print(f'Ошибка: {e}', file=sys.stderr)
         sys.exit(1)
